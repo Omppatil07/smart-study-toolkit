@@ -1,8 +1,10 @@
 import turtle
 import random
+import time
 print("SMART STUDY TOOLKIT")
 
 # ---------------- QUIZ GAME ----------------
+
 def quiz_game():
 
     score = 0
@@ -10,34 +12,42 @@ def quiz_game():
 
     name = input("Enter your name: ")
 
-    q1 = input("1. Who developed Python? ")
-    if q1.lower() == "guido":
-        print("Correct Answer!")
-        score += 1
-    else:
-        print("Wrong Answer")
+    questions = [
+        ("Who developed Python?", "guido"),
+        ("Keyword used to define a function?", "def"),
+        ("Which loop runs fixed number of times?", "for"),
+        ("Which keyword is used for exception handling?", "try")
+    ]
 
-    q2 = input("2. Keyword used to define a function? ")
-    if q2.lower() == "def":
-        print("Correct Answer!")
-        score += 1
-    else:
-        print("Wrong Answer")
+    random.shuffle(questions)
 
-    q3 = input("3. Which loop runs fixed number of times? ")
-    if q3.lower() == "for":
-        print("Correct Answer!")
-        score += 1
-    else:
-        print("Wrong Answer")
+    for q, ans in questions:
 
-    print("Your Final Score:", score)
+        print("\nYou have 10 seconds to answer")
+
+        start = time.time()
+
+        user = input(q + " : ")
+
+        end = time.time()
+        total_time = end - start
+
+        if total_time > 10:
+            print("Time exceeded! Moving to next question.")
+            continue
+
+        if user.lower() == ans:
+            print("Correct Answer!")
+            score += 1
+        else:
+            print("Wrong Answer! Correct answer is:", ans)
+
+    print("\nYour Final Score:", score)
 
     # SAVE SCORE TO FILE
     file = open("scores.txt", "a")
     file.write(name + " : " + str(score) + "\n")
     file.close()
-
 
 # ---------------- SAVE NOTES ----------------
 def save_notes():
