@@ -81,6 +81,34 @@ def view_notes():
         print("No notes found!")
 
 
+# ---------------- SEARCH NOTES ----------------
+def search_notes():
+
+    print("\nSEARCH NOTES")
+
+    keyword = input("Enter keyword to search: ")
+
+    try:
+        file = open("notes.txt", "r")
+
+        notes = file.readlines()
+
+        found = False
+
+        for note in notes:
+
+            if keyword.lower() in note.lower():
+                print("Found:", note.strip())
+                found = True
+
+        if not found:
+            print("No matching notes found.")
+
+        file.close()
+
+    except FileNotFoundError:
+        print("No notes file found.")
+
 # ---------------- TURTLE PATTERN ----------------
 def draw_pattern():
 
@@ -171,9 +199,10 @@ while True:
     print("1. Quiz Game")
     print("2. Save Study Notes")
     print("3. View Notes")
-    print("4. Draw Turtle Pattern")
-    print("5. View Quiz Scores")
-    print("6. Exit")
+    print("4. Search notes")
+    print("5. Draw Turtle Pattern")
+    print("6. View Quiz Scores")
+    print("7. Exit")
 
     choice = input("Enter your choice: ")
 
@@ -187,12 +216,15 @@ while True:
         view_notes()
 
     elif choice == "4":
-        draw_pattern()
+       search_notes()
 
     elif choice == "5":
-        view_scores()
+        draw_pattern()
 
     elif choice == "6":
+        view_scores()
+
+    elif choice == "7":
         print("Thank you for using Smart Study Toolkit!")
         break
 
